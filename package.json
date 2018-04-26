@@ -5,9 +5,7 @@
   "main": "index.js",
   "repository": "hybsearch/hybsearch",
   "homepage": "https://hybsearch.github.io/",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "scripts": {},
   "bin": {
     "hybsearch": "./index.js"
   },
