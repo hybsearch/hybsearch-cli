@@ -91,52 +91,6 @@ async function initSocket(url) {
   })
 }
 
-function onData(phase, data) {
-  // console.info([phase, data])
-//   if (phase.startsWith('newick-json:')) {
-//     // Once we get the parsed newick tree, we can render the tree while
-//     // the pipeline continues
-//     load(data)
-//   } else if (phase === 'pruned-identifiers') {
-//     let container = document.querySelector('#omitted-container')
-
-//     let formattedNames = data.map(node => {
-//       let ident = node.ident ? ` [${node.ident}]` : ''
-//       return { node: `${node.name}${ident} (${node.length})` }
-//     })
-
-//     if (formattedNames.length > 0) {
-//       container.hidden = false
-//       container.appendChild(makeTableFromObjectList(formattedNames))
-//     }
-//   } else if (phase === 'jml-output') {
-//     let container = document.querySelector('#jml-container')
-//     container.hidden = false
-
-//     document
-//       .querySelector('#distributions')
-//       .appendChild(makeTableFromObjectList(data.distributions))
-
-//     document
-//       .querySelector('#probabilities')
-//       .appendChild(makeTableFromObjectList(data.probabilities))
-
-//     data.results = data.results.map(item => {
-//       if (item.Probability < 0.05) {
-//         return Object.assign({}, item, { __highlight: true })
-//       }
-//       return item
-//     })
-//     document
-//       .querySelector('#results')
-//       .appendChild(makeTableFromObjectList(data.results))
-//   } else if (phase === 'nonmonophyletic-sequences') {
-//     setEntResults(data)
-//   } else {
-//     console.warn(`Client doesn't understand data for "${phase}"`)
-//   }
-}
-
 function onMessage(packet, outDir, argv) {
   let { type, payload } = JSON.parse(packet)
 
@@ -146,7 +100,6 @@ function onMessage(packet, outDir, argv) {
   } else if (type === 'stage-complete') {
     const { stage, timeTaken, result, cached } = payload
     console.log(`${stage}: completed in ${prettyMs(timeTaken)}${cached ? ' (cached)' : ''}`)
-    onData(stage, result)
     if (typeof result === 'string') {
       fs.writeFileSync(path.join(outDir, stage), result + '\n', 'utf-8')
     } else {
