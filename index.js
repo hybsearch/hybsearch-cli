@@ -162,10 +162,6 @@ async function main() {
         console.error('server error', err)
       }
     })
-
-    // let tasks = new Listr()
-
-    // tasks.run()
   } catch (e) {
     socket.close()
     throw e
