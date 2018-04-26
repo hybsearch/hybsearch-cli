@@ -1,0 +1,24 @@
+{
+  "name": "hybsearch-cli",
+  "version": "1.0.1",
+  "description": "A CLI to interact with Hybsearch",
+  "main": "index.js",
+  "repository": "hybsearch/hybsearch",
+  "homepage": "https://hybsearch.github.io/",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "hybsearch": "./index.js"
+  },
+  "keywords": [],
+  "author": "Hawken M. Rives <hawkrives@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "make-dir": "^1.2.0",
+    "meow": "^5.0.0",
+    "pretty-ms": "^3.1.0",
+    "update-notifier": "^2.5.0",
+    "ws": "^5.1.1"
+  }
+}
