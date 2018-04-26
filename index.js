@@ -100,10 +100,13 @@ function onMessage(packet, outDir, argv) {
   } else if (type === 'stage-complete') {
     const { stage, timeTaken, result, cached } = payload
     console.log(`${stage}: completed in ${prettyMs(timeTaken)}${cached ? ' (cached)' : ''}`)
-    if (typeof result === 'string') {
-      fs.writeFileSync(path.join(outDir, stage), result + '\n', 'utf-8')
-    } else {
-      fs.writeFileSync(path.join(outDir, stage), JSON.stringify(result, null, '\t') + '\n', 'utf-8')
+
+    if (outDir) {
+      if (typeof result === 'string') {
+        fs.writeFileSync(path.join(outDir, stage), result + '\n', 'utf-8')
+      } else {
+        fs.writeFileSync(path.join(outDir, stage), JSON.stringify(result, null, '\t') + '\n', 'utf-8')
+      }
     }
   } else if (type === 'error') {
     let { error } = payload
