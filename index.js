@@ -2,6 +2,7 @@
 
 'use strict'
 
+const publicIp = require('public-ip')
 const meow = require('meow')
 const got = require('got')
 const WebSocket = require('ws')
@@ -156,7 +157,8 @@ async function main() {
 
     socket.addEventListener('message', packet => onMessage(packet.data, destDir, argv))
 
-    let payload = { type: 'start', pipeline, filepath: file, data }
+    let ip = (await publicIp.v6()) || (await publicIp.v4())
+    let payload = { type: 'start-pipeline', pipeline, ip, filepath: file, data, options: { "outlierRemovalPercentage": 0.2, "beastChainLength": "10000000"} }
     socket.send(JSON.stringify(payload), err => {
       if (err) {
         console.error('server error', err)
